@@ -58,3 +58,14 @@ README.md
 ## Ícone do aplicativo
 
 Projeto atualizado com o ícone STL / OVB em estilo racing.
+
+
+## V0.4.2 — Monitor e pressão A/C
+
+- Pressão em bar diretamente do campo `pressure` do status JSON V3.0.2 (sem converter ADC pelo Android). Em caso de `sensor_ok=false` ou `pressure=null`, aparece `—`.
+- Aviso: GPIO34 desconectado pode flutuar e produzir leitura aparentemente válida. Não usar o indicador para liberar fisicamente o compressor; corrigir hardware/firmware antes de instalar.
+- Em **Ajustes > Monitor RX/TX**, veja todas as mensagens Bluetooth de entrada e os comandos efetivamente escritos no socket (inclusive inicialização).
+- Exportar `stilo-overboost-monitor-rx-tx.json`: até 1200 linhas cronológicas do protocolo Bluetooth; histórico é só da sessão e é mantido após desconectar.
+- Em **CAN > Exportar CAN RX**, salve as respostas CAN LIST recebidas como snapshots. São snapshots do gateway, **não** captura integral dos frames CAN do veículo.
+- **Exportar mapa CAN** continua salvando apenas sinais confirmados.
+- Nenhuma mudança no firmware ESP32. Nenhuma permissão para enviar CAN TX ou `AC ENABLE`.

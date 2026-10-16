@@ -169,8 +169,9 @@ class MainActivity : Activity() {
                         synchronized(candidate) {
                             for (command in arrayOf("HELLO", "STATUS", "CAN LIST", "DEC LIST")) {
                                 writer.write((command + "\n").toByteArray(Charsets.UTF_8))
+                                writer.flush()
+                                notifyJs(JSONObject().put("type", "tx").put("line", command))
                             }
-                            writer.flush()
                         }
                     } catch (_: Exception) { }
                 }.start()
@@ -221,6 +222,7 @@ class MainActivity : Activity() {
                 synchronized(connection) {
                     connection.outputStream.write((line + "\n").toByteArray(Charsets.UTF_8))
                     connection.outputStream.flush()
+                    notifyJs(JSONObject().put("type", "tx").put("line", line))
                 }
             } catch (e: Exception) { event("error", e.message ?: "Falha no envio") }
         }.start()
